@@ -1,0 +1,64 @@
+---
+title: "262004 UE Introduction to Computational Meteorology - Exercises (2024W)"
+format:
+  pdf:
+    documentclass: scrartcl
+    papersize: letter
+    number-sections: true
+    colorlinks: true
+author:
+ - name: "Aiko Voigt"
+   email: aiko.voigt@univie.ac.at
+   affiliation: 
+    - name: Department of Meteorology and Geophysics, University of Vienna
+      url: "https://klimadynamik.univie.ac.at"
+date: today
+date-format: long 
+
+bibliography: "C:/Users/Aiko/Dropbox/BibTEX/my_entire_bibliography.bib"
+---
+
+## Logistics
+
+We meet each Tuesday at 9:30 in UZA2 2F513. Note, however, that we do not meet on Oct 15, so the next meeting is on Oct 22. Please use the week of Oct 15 to work through the material on netCDF and xarray given below, and to read @jerez_climatechange_photovoltaicenergy_natcomm2015 and @buster_machinelearngin_renewableenergy_natenergy2024.
+
+## Content of the exercises
+
+We will use ERA5 reanalysis data to compute potential solar energy production and its evolution from about 1950 to today. To this end, we will 
+use hourly data from ERA5 for surface downward solar radiation, 2m temperature and near-surface wind speed. To compute the potential solar energy production, we will apply Eqs. 1, 2 and 3 of @jerez_climatechange_photovoltaicenergy_natcomm2015.
+
+ERA5 has a horizontal resolution of 31km. We might also experiment with using ERA5-Land, which has a finer resolution of 9km.
+Moreover, we will study how coarse-graining the input fields to a coarser resolution of 100 km and to daily values affects the calculated
+potential solar energy production. The coarse graining is interesting because it will allow us to link to the type of data that is typically
+provided by global climate models. Some background on why this is interesting is provided in @buster_machinelearngin_renewableenergy_natenergy2024.
+
+## TeachingHub
+
+We will work with the JuypterHub of the Department of Meteorology and Geophysics. You can access it via the Moodle page of the exercise course.
+
+I will make sure that the ERA5 data is available on the JupyterHub.
+
+## Getting started with data analysis
+
+Below are links to tutorials and videos to help you get started with geoscientific
+data analysis in Python. The two most important concepts to make yourself familiar with
+are the netCDF file format and the xarray package. We will make extensive use of both.
+
+For netCDF, I suggest you watch [https://www.youtube.com/watch?v=UvNBnjiTXa0](https://www.youtube.com/watch?v=UvNBnjiTXa0) (@fig-yt-netcdf-climate-unboxed) and[https://www.youtube.com/watch?v=699jkjLJGyM](https://www.youtube.com/watch?v=699jkjLJGyM) (@fig-yt-netcdf-lukedatamanager.png). As you will see in the second video, netCDF files can easily be opened with xarray.
+
+![Youtube video on netCDF files by Adrian Tompkins aka Climate Unboxed. [https://www.youtube.com/watch?v=UvNBnjiTXa0](https://www.youtube.com/watch?v=UvNBnjiTXa0).](yt-netcdf-climate-unboxed.png){#fig-yt-netcdf-climate-unboxed}
+
+![Youtube video on netCDF files by "Luke Data Manager". [https://www.youtube.com/watch?v=699jkjLJGyM](https://www.youtube.com/watch?v=699jkjLJGyM).](yt-netcdf-lukedatamanager.png){#fig-yt-netcdf-lukedatamanager.png}
+
+For xarray, I suggest you work through [http://gallery.pangeo.io/repos/pangeo-data/pangeo-tutorial-gallery/xarray.html](http://gallery.pangeo.io/repos/pangeo-data/pangeo-tutorial-gallery/xarray.html). You can also work interactively through the tutorial by clicking on the **launch mybinder** button
+in the left-top corner (@fig-pangeo-xarray-tutorial). This will start a JupyterLab session for the xarray.ipynb notebook. No registration or data transfer is needed, you can work with the notebook right away. See @fig-mybinder-xarray-ipynb.
+
+![Click on the grey-blue button to launch the tutorial in a JupyterLab session.](pangeo-xarray-tutorial.png){#fig-pangeo-xarray-tutorial}
+
+![JupyterLab session on mybinder.org.](mybinder-xarray-ipynb.png){#fig-mybinder-xarray-ipynb}
+
+## References
+
+
+
+
