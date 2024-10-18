@@ -8,16 +8,14 @@ import cdsapi
 
 dataset = "reanalysis-era5-land"
 request = {
-    "product_type": ["reanalysis"],
     "variable": [
-        "10m_u_component_of_wind",
-        "10m_v_component_of_wind",
         "2m_temperature",
-        "surface_solar_radiation_downward_clear_sky",
-        "surface_solar_radiation_downwards"
+        "surface_solar_radiation_downwards",
+        "10m_u_component_of_wind",
+        "10m_v_component_of_wind"
     ],
-    "year": ["1950"],
-    "month": ["01"],
+    "year": "1950",
+    "month": "01",
     "day": [
         "01", "02", "03",
         "04", "05", "06",
