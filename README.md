@@ -8,6 +8,7 @@ Directory structure:
  * `python-kernel`: create python kernel on IMG Teachinghub via the Masterhub access, using the account avoigt
  * `era5-download`: scripts to retrieve ERA5 and ERA5-Land data from the Copernicus Data Store
  * `analysis`: scripts to calculate PV potential etc.
+ * test
 
 Notes for Aiko Voigt:
 
