@@ -22,9 +22,9 @@ Notes for Aiko Voigt:
 
 #git pull origin main #to see the changes of the others
 
-TODO: Start with one
-monthly climatology of pv pot 
-Europe: to satisfy Europe's enhrgy, how much area needs to be covered by PV, and where?
-PV pot change between 1950-1959 and 2000-2009; climate chnage singnal? 
-PV pot and extrem event (are there some correlations?)
-If we have time: How PV pot changes, if we would have only daily data and not hourly data (calculate the mean data for one day) (could als try to do it "bachwards" with machine learning, as we have the hourly data)
+TODO: 
+* Start with monthly climatology of pv pot 
+* Europe: to satisfy Europe's enhrgy, how much area needs to be covered by PV, and where?
+* PV pot change between 1950-1959 and 2000-2009; climate chnage singnal? 
+* PV pot and extrem event (are there some correlations?)
+* If we have time: How PV pot changes, if we would have only daily data and not hourly data (calculate the mean data for one day) (could als try to do it "bachwards" with machine learning, as we have the hourly data)
