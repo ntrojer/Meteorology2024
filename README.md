@@ -28,3 +28,11 @@ TODO:
 * PV pot change between 1950-1959 and 2000-2009; climate chnage singnal? 
 * PV pot and extrem event (are there some correlations?)
 * If we have time: How PV pot changes, if we would have only daily data and not hourly data (calculate the mean data for one day) (could als try to do it "bachwards" with machine learning, as we have the hourly data)
+
+Next: 
+* PVpot for each month over one year, that we can see hoh it changes with the seasons (12 plots)
+* Ride comments ;)
+* Save data for every month and every year
+* Plot the mean 0f 1950-1959 and of 2000-2010 (2 plots)
+* Same for all four seasons (8 plots)
+* Continents (e.g. Antarctica)
