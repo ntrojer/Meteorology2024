@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 from multiprocessing import Process, Queue
 import cartopy.crs as ccrs
 import core as core
+import cartopy.feature as cfeature
+
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -59,22 +61,14 @@ nlon = 1440;
 ds2=xr.open_mfdataset(path+"era5-1950-01.nc", chunks={"valid_time":1e5} )
 ds2["wspd"] = core.windspeed(ds2)
 pvpot2 = core.pv_pot(ds2).groupby(ds2.valid_time.dt.month).mean("valid_time").compute()
-fig, ax = plt.subplots(figsize=(10, 8))
+fig, ax = plt.subplots(figsize=(10, 8), subplot_kw={'projection': ccrs.PlateCarree()})
 
 # Main plot: Contour plot of potential vorticity
 contour = ax.contourf(ds2.longitude, ds2.latitude, pvpot2[0, :, :], cmap="viridis")
 fig.colorbar(contour, ax=ax, orientation="vertical", label="Potential Vorticity")
 
-# Inset plot: World map
-from mpl_toolkits.axes_grid1.inset_locator import inset_axes
-
-# Define the inset position and dimensions (manually), then set projection
-inset_position = [0.05, 0.05, 0.3, 0.3]  # [left, bottom, width, height] relative to the main plot
-ax_inset = fig.add_axes(inset_position, projection=ccrs.PlateCarree())
-ax_inset.set_global()
-ax_inset.stock_img()  # Background world image
-ax_inset.coastlines()
-ax_inset.set_title("World Map", fontsize=8)
+ax.coastlines(color='black', linewidth=0.7)
+ax.add_feature(cfeature.BORDERS, edgecolor='white', linewidth=0.5)
 
 plt.show()
 plt.savefig('pvpot.png')
