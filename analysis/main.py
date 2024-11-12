@@ -10,7 +10,8 @@ import warnings
 warnings.filterwarnings("ignore")
 
 # location of era5 data on teachinghub
-path="../LEHRE/msc-intro-comp-met-ex-w2024/data/era5/"
+path="../../LEHRE/msc-intro-comp-met-ex-w2024/data/era5/"
+print(Path(path).resolve())
 
 
 # generate list of era5 files for a given year
@@ -37,20 +38,22 @@ def multi_processing():
     filelists = []
     for year in years:
         filelists.append(get_filelists(year))
-
+    
     for flist in filelists:
+        #print(flist)
         # use 1 process per monthly file
         nprocs = len(flist)
         # output from each process
         pvpot_chk = np.zeros((nprocs,nlat,nlon))
         queue = Queue()
         processes = [Process(target=batchcompute_pvpot, 
-                             args=(flist[i], queue)) for i in range(0, nprocs)]
+                            args=(flist[i], queue)) for i in range(0, nprocs)]
         for process in processes: process.start() # start all processes
         for i in range(nprocs): # collect results from processes
             pvpot_chk[i] = queue.get()
         for process in processes: process.join()  # wait for all processes to complete
-        # merge into yearly array
+            #        # merge into yearly array
         pvpot = np.stack(pvpot_chk, axis=0)
+        print(pvpot) 
 
 multi_processing()
