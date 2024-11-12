@@ -58,17 +58,33 @@ nlon = 1440;
        # print(pvpot) 
 """
 
-ds2=xr.open_mfdataset(path+"era5-1950-01.nc", chunks={"valid_time":1e5} )
-ds2["wspd"] = core.windspeed(ds2)
-pvpot2 = core.pv_pot(ds2).groupby(ds2.valid_time.dt.month).mean("valid_time").compute()
+new_data = True  # if you want to save time fetching the data, set this to false
+
+if new_data:
+    ds2=xr.open_mfdataset(path+"era5-1950-01.nc", chunks={"valid_time":1e5} )
+    ds2["wspd"] = core.windspeed(ds2)
+    ds2["pvpot2"] = core.pv_pot(ds2).groupby(ds2.valid_time.dt.month).mean("valid_time").compute()
+    # pvpot2 = core.pv_pot(ds2).groupby(ds2.valid_time.dt.month).mean("valid_time").compute()
+    ds2[["pvpot2", "wspd", "longitude", "latitude"]].to_netcdf("complete_data.nc")
+    
+
+else:
+    ds2 = xr.open_dataset("complete_data.nc")
+
 fig, ax = plt.subplots(figsize=(10, 8), subplot_kw={'projection': ccrs.PlateCarree()})
 
 # Main plot: Contour plot of potential vorticity
-contour = ax.contourf(ds2.longitude, ds2.latitude, pvpot2[0, :, :], cmap="viridis")
+contour = ax.contourf(ds2.longitude, ds2.latitude, ds2.pvpot2[0, :, :], cmap="viridis")
 fig.colorbar(contour, ax=ax, orientation="vertical", label="Potential Vorticity")
 
-ax.coastlines(color='black', linewidth=0.7)
+ax.coastlines(color='white', linewidth=0.7)
 ax.add_feature(cfeature.BORDERS, edgecolor='white', linewidth=0.5)
+
+gl = ax.gridlines(draw_labels=True, linestyle="None")
+gl.top_labels = False  # Disable top labels
+gl.right_labels = False  # Disable right labels
+gl.xlabel_style = {'size': 10, 'color': 'black'}
+gl.ylabel_style = {'size': 10, 'color': 'black'}
 
 plt.show()
 plt.savefig('pvpot.png')
