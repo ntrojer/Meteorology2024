@@ -30,6 +30,7 @@ TODO:
 * If we have time: How PV pot changes, if we would have only daily data and not hourly data (calculate the mean data for one day) (could als try to do it "bachwards" with machine learning, as we have the hourly data)
 
 Next: 
+* argument for fals and true for data loading
 * PVpot for each month over one year, that we can see hoh it changes with the seasons (12 plots)
 * Ride comments ;)
 * Save data for every month and every year
