@@ -6,10 +6,16 @@ from multiprocessing import Process, Queue
 import cartopy.crs as ccrs
 import core as core
 import cartopy.feature as cfeature
-
-
+import argparse
 import warnings
+
 warnings.filterwarnings("ignore")
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--new_data", action="store_true", help="If you want to save time fetching the data, set this to false")
+args = parser.parse_args()
+
 
 # location of era5 data on teachinghub
 path="../../LEHRE/msc-intro-comp-met-ex-w2024/data/era5/"
@@ -58,9 +64,9 @@ nlon = 1440;
        # print(pvpot) 
 """
 
-new_data = True  # if you want to save time fetching the data, set this to false
+#new_data = True  # if you want to save time fetching the data, set this to false
 
-if new_data:
+if args.new_data:
     ds2=xr.open_mfdataset(path+"era5-1950-01.nc", chunks={"valid_time":1e5} )
     ds2["wspd"] = core.windspeed(ds2)
     ds2["pvpot2"] = core.pv_pot(ds2).groupby(ds2.valid_time.dt.month).mean("valid_time").compute()
