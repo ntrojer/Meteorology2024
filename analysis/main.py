@@ -8,6 +8,7 @@ import core as core
 import cartopy.feature as cfeature
 import argparse
 import warnings
+import fetch_monthly_data
 
 warnings.filterwarnings("ignore")
 
@@ -66,16 +67,7 @@ nlon = 1440;
 
 #new_data = True  # if you want to save time fetching the data, set this to false
 
-if args.new_data:
-    ds2=xr.open_mfdataset(path+"era5-1950-01.nc", chunks={"valid_time":1e5} )
-    ds2["wspd"] = core.windspeed(ds2)
-    ds2["pvpot2"] = core.pv_pot(ds2).groupby(ds2.valid_time.dt.month).mean("valid_time").compute()
-    # pvpot2 = core.pv_pot(ds2).groupby(ds2.valid_time.dt.month).mean("valid_time").compute()
-    ds2[["pvpot2", "wspd", "longitude", "latitude"]].to_netcdf("complete_data.nc")
-    
-
-else:
-    ds2 = xr.open_dataset("complete_data.nc")
+ds2 = fetch_monthly_data.fetch_monthly_data(path=path, new_data=args.new_data)
 
 fig, ax = plt.subplots(figsize=(10, 8), subplot_kw={'projection': ccrs.PlateCarree()})
 
