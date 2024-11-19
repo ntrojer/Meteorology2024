@@ -22,18 +22,23 @@ Notes for Aiko Voigt:
 
 #git pull origin main #to see the changes of the others
 
-TODO: 
-* Start with monthly climatology of pv pot 
-* Europe: to satisfy Europe's enhrgy, how much area needs to be covered by PV, and where?
-* PV pot change between 1950-1959 and 2000-2009; climate chnage singnal? 
+Projects: 
+* Start with monthly climatology of pv pot (want to do)
+* Europe: to satisfy Europe's energy, how much area needs to be covered by PV, and where?
+* PV pot change between 1950-1959 and 2000-2009; climate chnage singnal?  (want to do)
 * PV pot and extrem event (are there some correlations?)
 * If we have time: How PV pot changes, if we would have only daily data and not hourly data (calculate the mean data for one day) (could als try to do it "bachwards" with machine learning, as we have the hourly data)
 
 Next: 
-* argument for fals and true for data loading (Now for new data: python main.py --new_data)
-* PVpot for each month over one year, that we can see hoh it changes with the seasons (12 plots)
-* Ride comments ;)
-* Save data for every month and every year
-* Plot the mean 0f 1950-1959 and of 2000-2010 (2 plots)
-* Same for all four seasons (8 plots)
+* argument for false and true for data loading (Now for new data: python main.py --new_data)
+* PVpot for each month over one year, that we can see how it changes with the seasons (12 plots)-year: 2005
+      (montly 2.9 GB was big so we should take the annual mean or we try until there is no space for saving anymore)
+* Write comments ;)
+* Save data for every year-> 1950-1959 and of 2000-2010
+* -> Plot the mean of 1950-1959 and of 2000-2010 (2 plots)
+* -> Same for all four seasons (8 plots): mean over all years for the seasons
 * Continents (e.g. Antarctica)
+
+DONE:
+* plot the data with map
+* save the data in netcdf file *  
