@@ -3,4 +3,6 @@
 *.nc
 .nc
 */.nc
-
+*.png
+.png
+*/.png
