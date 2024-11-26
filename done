@@ -1,0 +1,23 @@
+Write comments ;)
+
+DONE:
+Tried to get the data form the files of Voigt
+  -> Changed the path 
+Created a plot with the earth map as a subplot 
+Researching how to save the data in a netcdf file 
+  -> Created functions to download the years and the months 
+  -> argument for false and true for data loading (Now for new data: python main.py --new_data)
+
+NEXT:
+  * Load data of 1950-1959 and 2000-2009 - ALL
+  * Load monthly data of 2005 - ALL
+  * How to get only one continent? 
+  * How to get one season? - group of months
+  * Machine Learning: For one region (Europe), maybe train may of 2004 and test it on may 2005
+  * Plot:
+-> PVpot for each month over one year, that we can see how it changes with the seasons (12 plots)-year: 2005 - Julia -> Nina
+-> Plot the mean of 1950-1959 and of 2000-2010 (2 plots)
+-> Same for all four seasons (8 plots): mean over all years for the seasons
+-> Continents (e.g. Antarctica, Europa, Equator)
+
+
