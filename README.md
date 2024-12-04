@@ -41,4 +41,47 @@ Next:
 
 DONE:
 * plot the data with map
-* save the data in netcdf file *  
+* save the data in netcdf file *
+
+
+Changes:
+main.py:
+path = "../../Meteorology2024/analysis/"
+if args.timestep == "monthly":
+    ds2_m = fetch_monthly_data.fetch_monthly_data(path=path, new_data=args.new_data, years=years)
+    #Path("monthly_plots").mkdir(parents=True, exist_ok=True)
+    save_fig(ds2_m, timestep="monthly")
+elif args.timestep == "yearly":
+    ds2_y = fetch_yearly_data.fetch_yearly_data(path=path, new_data=args.new_data, years=years)
+    save_fig(ds2_y, timestep="yearly")
+
+fetch_yearly_data:
+import xarray as xr
+import core as core
+from pathlib import Path
+
+def fetch_yearly_data(path, new_data, years):
+    ds2_dict = {}
+    for year in years:
+        if new_data:
+            Path(f"era5-{year}-yearly").mkdir(parents=True, exist_ok=True)
+            ds = xr.open_mfdataset(
+                f"{path}era5-{year}-*.nc",
+                combine="by_coords",
+                chunks={"valid_time": 1e5}
+            )
+            ds["wspd"] = core.windspeed(ds)
+            ds["pvpot2"] = core.pv_pot(ds).mean(dim="valid_time").compute()
+            ds[["pvpot2", "longitude", "latitude"]].to_netcdf(f"era5-{year}-yearly/era5-{year}.nc")
+            ds2_dict[str(year)] = ds
+        else:
+            path= "../../Meteorology2024/analysis/"
+            yearly_file = f"era5-{year}.nc"
+            if Path(yearly_file).exists():
+                ds = xr.open_dataset(yearly_file)
+                ds2_dict[str(year)] = ds
+            else:
+                raise FileNotFoundError(f"Yearly file {yearly_file} does not exist. Use --new_data to generate it.")
+
+    return ds2_dict
+
