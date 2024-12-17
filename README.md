@@ -85,3 +85,40 @@ def fetch_yearly_data(path, new_data, years):
 
     return ds2_dict
 
+
+
+
+
+
+
+
+
+
+
+
+
+Presentation:
+Thema                                   Person
+Motivation/ aim /project question       Mimi
+Dataset -> netcdf                       Julia
+Yearly and monthly plots                Julia
+Machine Learning                        Mimi
+
+Results:
+- Show the plots and video              Nina
+- Monat difference different plots      Nina
+
+Conclusion
+- Difference yearly one plot            Nina
+- answer the question climate change    Nina
+ (one plot for 10 years for the differnce)
+
+
+
+
+
+
+
+
+
+
