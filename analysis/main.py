@@ -8,8 +8,11 @@ import core as core
 import cartopy.feature as cfeature
 import argparse
 import warnings
-import fetch_monthly_data
+#import fetch_monthly_data
 import fetch_yearly_data
+import cdo_fetch_monthly_data_Copy1 as fetch_monthly_data
+
+
 
 warnings.filterwarnings("ignore")
 
@@ -19,7 +22,7 @@ def save_fig(ds2_dict):
 
         # Main plot: Contour plot of potential vorticity
         contour = ax.contourf(ds2.longitude, ds2.latitude, ds2.pvpot2[0, :, :], cmap="viridis")
-        fig.colorbar(contour, ax=ax, orientation="vertical", label="Potential Vorticity")
+        fig.colorbar(contour, ax=ax, orientation="vertical", label="PVPot")
         
         ax.coastlines(color='white', linewidth=0.7)
         ax.add_feature(cfeature.BORDERS, edgecolor='white', linewidth=0.5)
@@ -34,6 +37,8 @@ def save_fig(ds2_dict):
         
         plt.savefig(f"monthly_plots/pvpot-{key}.png")
 
+
+    
 # location of era5 data on teachinghub
 path="../../LEHRE/msc-intro-comp-met-ex-w2024/data/era5/"
 
@@ -68,6 +73,11 @@ else:
     save_fig(ds2)
 
 
+
+   
+
+
+    
 # fig, ax = plt.subplots(figsize=(10, 8), subplot_kw={'projection': ccrs.PlateCarree()})
 
 # # Main plot: Contour plot of potential vorticity
