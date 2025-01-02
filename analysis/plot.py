@@ -26,6 +26,25 @@ ds_ym_zm_20 = xr.open_dataset(file_path_ym_zm_20)
 file_path_ym_zm_19 = "era5_19_yearly/era5-19s-ym-zm.nc"  
 ds_ym_zm_19 = xr.open_dataset(file_path_ym_zm_19)
 
+file_path_t2m_greenland = "era5_t2m_19_ymon_greenland.nc"  
+ds_t2m_gl = xr.open_dataset(file_path_t2m_greenland)
+
+file_path_pvpot_greenland = "era5_19_ymon_greenland.nc"  
+ds_pvpot_gl= xr.open_dataset(file_path_pvpot_greenland)
+
+file_path_ssrd_greenland = "era5_ssrd_19_ymon_greenland.nc"  
+ds_ssrd_gl = xr.open_dataset(file_path_ssrd_greenland)
+
+file_path_t2m_austria = "era5_t2m_19_ymon_greenland.nc"  
+ds_t2m_aut = xr.open_dataset(file_path_t2m_austria)
+
+file_path_pvpot_austria = "era5_19_ymon_austria.nc"  
+ds_pvpot_aut= xr.open_dataset(file_path_pvpot_austria)
+
+file_path_ssrd_austria = "era5_ssrd_19_ymon_austria.nc"  
+ds_ssrd_aut = xr.open_dataset(file_path_ssrd_austria)
+
+
 # ---------------- Globales Mittel (ymon) ---------------------------
 
 # Extrahiere die gewünschte Variable (z. B. 'pvpot2') als DataArray
@@ -221,3 +240,185 @@ plt.savefig("hovmoller_pvpot_ym.png")
 # Anzeigen
 plt.show()
 
+# ---------------- Greenland t2m/pvpot ---------------------------
+
+# Extrahiere die gewünschte Variable (z. B. 'pvpot2') als DataArray
+t2m_gl = ds_t2m_gl['t2m'] - 273.15
+pvpot_gl = ds_pvpot_gl['pvpot2']
+
+# Konvertiere die Werte in ein numpy-Array (1D- oder 2D-Struktur)
+t2m_gl = t2m_gl.values.squeeze()  # Entfernt überflüssige Dimensionen, falls nötig
+pvpot_gl = pvpot_gl.values.squeeze()
+
+# Anzahl der Jahre (entspricht der Zeitdimension)
+t2m_gl_month = t2m_gl.shape[0]
+pvpot_gl_month = pvpot_gl.shape[0]
+
+# Erstellen des Plots mit zwei y-Achsen
+fig, ax1 = plt.subplots(figsize=(10, 6))
+
+# Plot für PVPot auf der linken y-Achse
+ax1.plot(range(1, pvpot_gl_month + 1), pvpot_gl, marker='o', color='r', linestyle='-', markersize=6, label="PVPot")
+ax1.set_xlabel("Month", fontsize=12)
+ax1.set_ylabel("Greenland Mean PVPot", color='r', fontsize=12)
+ax1.tick_params(axis='y', labelcolor='r')
+
+# Erstellen der zweiten y-Achse für Temperatur
+ax2 = ax1.twinx()
+ax2.plot(range(1, t2m_gl_month + 1), t2m_gl, marker='o', color='b', linestyle='-', markersize=6, label="t2m")
+ax2.set_ylabel("Greenland Mean t2m (°C)", color='b', fontsize=12)
+ax2.tick_params(axis='y', labelcolor='b')
+
+# Gemeinsame x-Achse
+ax1.set_xticks(range(1, pvpot_gl_month + 1))
+ax1.set_xticklabels(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
+
+# Titel und Legende
+fig.suptitle("Mean PVPot and t2m for Each Month: Greenland", fontsize=16)
+fig.tight_layout()
+
+# Speichern und Anzeigen des Plots
+plt.savefig("pvpot-t2m-greenland.png")
+plt.show()
+
+# ---------------- Austria t2m/pvpot ---------------------------
+
+# Extrahiere die gewünschte Variable (z. B. 'pvpot2') als DataArray
+t2m_aut = ds_t2m_aut['t2m'] - 273.15
+pvpot_aut = ds_pvpot_aut['pvpot2']
+
+
+# Konvertiere die Werte in ein numpy-Array (1D- oder 2D-Struktur)
+t2m_aut = t2m_aut.values.squeeze()  # Entfernt überflüssige Dimensionen, falls nötig
+pvpot_aut = pvpot_aut.values.squeeze()
+
+# Anzahl der Jahre (entspricht der Zeitdimension)
+t2m_aut_month = t2m_aut.shape[0]
+pvpot_aut_month = pvpot_aut.shape[0]
+
+# Erstellen des Plots mit zwei y-Achsen
+fig, ax1 = plt.subplots(figsize=(10, 6))
+
+# Plot für PVPot auf der linken y-Achse
+ax1.plot(range(1, pvpot_aut_month + 1), pvpot_aut, marker='o', color='r', linestyle='-', markersize=6, label="PVPot")
+ax1.set_xlabel("Month", fontsize=12)
+ax1.set_ylabel("Austria Mean PVPot", color='r', fontsize=12)
+ax1.tick_params(axis='y', labelcolor='r')
+
+# Erstellen der zweiten y-Achse für Temperatur
+ax2 = ax1.twinx()
+ax2.plot(range(1, t2m_aut_month + 1), t2m_aut, marker='o', color='b', linestyle='-', markersize=6, label="t2m")
+ax2.set_ylabel("Austria Mean t2m (°C)", color='b', fontsize=12)
+ax2.tick_params(axis='y', labelcolor='b')
+
+# Gemeinsame x-Achse
+ax1.set_xticks(range(1, pvpot_aut_month + 1))
+ax1.set_xticklabels(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
+
+# Titel und Legende
+fig.suptitle("Mean PVPot and t2m for Each Month: Austria", fontsize=16)
+fig.tight_layout()
+
+# Speichern und Anzeigen des Plots
+plt.savefig("pvpot-t2m-austria.png")
+plt.show()
+
+# ---------------- Austria t2m/pvpot/ssrd ---------------------------
+
+# Extrahiere die gewünschte Variable (z. B. 'pvpot2') als DataArray
+t2m_aut = ds_t2m_aut['t2m'] - 273.15
+pvpot_aut = ds_pvpot_aut['pvpot2']
+ssrd_aut = ds_ssrd_aut['ssrd']/3600
+
+
+# Konvertiere die Werte in ein numpy-Array (1D- oder 2D-Struktur)
+t2m_aut = t2m_aut.values.squeeze()  # Entfernt überflüssige Dimensionen, falls nötig
+pvpot_aut = pvpot_aut.values.squeeze()
+ssrd_aut = ssrd_aut.values.squeeze()
+
+# Anzahl der Jahre (entspricht der Zeitdimension)
+t2m_aut_month = t2m_aut.shape[0]
+pvpot_aut_month = pvpot_aut.shape[0]
+
+# Erstellen des Plots mit zwei y-Achsen
+fig, ax1 = plt.subplots(figsize=(10, 6))
+
+# Plot für PVPot auf der linken y-Achse
+ax1.plot(range(1, pvpot_aut_month + 1), pvpot_aut, marker='o', color='r', linestyle='-', markersize=6, label="PVPot")
+ax1.set_xlabel("Month", fontsize=12)
+ax1.set_ylabel("Austria Mean PVPot", color='r', fontsize=12)
+ax1.tick_params(axis='y', labelcolor='r')
+
+# Erstellen der zweiten y-Achse für Temperatur
+ax2 = ax1.twinx()
+ax2.plot(range(1, t2m_aut_month + 1), t2m_aut, marker='o', color='b', linestyle='-', markersize=6, label="t2m")
+ax2.set_ylabel("Austria Mean t2m (°C)", color='b', fontsize=12)
+ax2.tick_params(axis='y', labelcolor='b')
+
+ax3 = ax1.twinx()
+ax3.spines["right"].set_position(("outward", 60))  # Verschiebt die dritte Achse nach rechts
+ax3.plot(range(1, t2m_aut_month + 1), ssrd_aut, marker='o', color='g', linestyle='-', markersize=6, label="ssrd")
+ax3.set_ylabel("Austria Mean SSRD (W/m²)", color='g', fontsize=12)
+ax3.tick_params(axis='y', labelcolor='g')
+
+# Gemeinsame x-Achse
+ax1.set_xticks(range(1, pvpot_aut_month + 1))
+ax1.set_xticklabels(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
+
+# Titel und Legende
+fig.suptitle("Mean PVPot, ssrd and t2m for Each Month: Austria", fontsize=16)
+fig.tight_layout()
+
+# Speichern und Anzeigen des Plots
+plt.savefig("pvpot-t2m-ssrd-austria.png")
+plt.show()
+
+# ---------------- Greenland t2m/pvpot/ssrd ---------------------------
+
+# Extrahiere die gewünschte Variable (z. B. 'pvpot2') als DataArray
+t2m_gl = ds_t2m_gl['t2m'] - 273.15
+pvpot_gl = ds_pvpot_gl['pvpot2']
+ssrd_gl = ds_ssrd_gl['ssrd']/3600
+
+
+# Konvertiere die Werte in ein numpy-Array (1D- oder 2D-Struktur)
+t2m_gl = t2m_gl.values.squeeze()  # Entfernt überflüssige Dimensionen, falls nötig
+pvpot_gl = pvpot_gl.values.squeeze()
+ssrd_gl = ssrd_gl.values.squeeze()
+
+# Anzahl der Jahre (entspricht der Zeitdimension)
+t2m_gl_month = t2m_gl.shape[0]
+pvpot_gl_month = pvpot_gl.shape[0]
+
+# Erstellen des Plots mit zwei y-Achsen
+fig, ax1 = plt.subplots(figsize=(10, 6))
+
+# Plot für PVPot auf der linken y-Achse
+ax1.plot(range(1, pvpot_gl_month + 1), pvpot_gl, marker='o', color='r', linestyle='-', markersize=6, label="PVPot")
+ax1.set_xlabel("Month", fontsize=12)
+ax1.set_ylabel("Greenland Mean PVPot", color='r', fontsize=12)
+ax1.tick_params(axis='y', labelcolor='r')
+
+# Erstellen der zweiten y-Achse für Temperatur
+ax2 = ax1.twinx()
+ax2.plot(range(1, t2m_gl_month + 1), t2m_gl, marker='o', color='b', linestyle='-', markersize=6, label="t2m")
+ax2.set_ylabel("Greenland Mean t2m (°C)", color='b', fontsize=12)
+ax2.tick_params(axis='y', labelcolor='b')
+
+ax3 = ax1.twinx()
+ax3.spines["right"].set_position(("outward", 60))  # Verschiebt die dritte Achse nach rechts
+ax3.plot(range(1, t2m_gl_month + 1), ssrd_gl, marker='o', color='g', linestyle='-', markersize=6, label="ssrd")
+ax3.set_ylabel("Greenland Mean SSRD (W/m²)", color='g', fontsize=12)
+ax3.tick_params(axis='y', labelcolor='g')
+
+# Gemeinsame x-Achse
+ax1.set_xticks(range(1, pvpot_gl_month + 1))
+ax1.set_xticklabels(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
+
+# Titel und Legende
+fig.suptitle("Mean PVPot, ssrd and t2m for Each Month: Greenland", fontsize=16)
+fig.tight_layout()
+
+# Speichern und Anzeigen des Plots
+plt.savefig("pvpot-t2m-ssrd-greenland.png")
+plt.show()
